@@ -21,36 +21,60 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.documentElement.style.scrollBehavior = 'auto';
 }
 
-//product slider
+//SLIDER ALL
 const track = document.querySelector('.slide-track');
 const btnNext = document.querySelector('.next');
 const btnPrev = document.querySelector('.prev');
 
-const STEP = 220;
+const STEP = 300; 
 const INTERVAL = 3000; 
+let autoSlide;
+
+function scrollNext() {
+  if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 5) {
+    track.scrollTo({ left: 0, behavior: 'smooth' });
+  } else {
+    track.scrollBy({ left: STEP, behavior: 'smooth' });
+  }
+}
+
+function scrollPrev() {
+  if (track.scrollLeft <= 5) {
+    track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+  } else {
+    track.scrollBy({ left: -STEP, behavior: 'smooth' });
+  }
+}
+
+const startAutoSlide = () => {
+  autoSlide = setInterval(scrollNext, INTERVAL);
+};
+
+const resetTimer = () => {
+  clearInterval(autoSlide);
+  startAutoSlide();
+};
+
+startAutoSlide();
 
 btnNext.addEventListener('click', () => {
-  track.scrollBy({ left: STEP, behavior: 'smooth' });
+  scrollNext();
+  resetTimer();
 });
 
 btnPrev.addEventListener('click', () => {
-  track.scrollBy({ left: -STEP, behavior: 'smooth' });
+  scrollPrev();
+  resetTimer();
 });
 
-    // ---- Auto-slide ----
-let autoSlide = setInterval(() => {
-  if (track.scrollLeft + track.clientWidth < track.scrollWidth - 5) {
-    track.scrollBy({ left: STEP, behavior: 'smooth' });
-  } 
-  else {
-    track.scrollTo({ left: 0, behavior: 'smooth' });
-  }
-}, INTERVAL);
-
 track.addEventListener('touchstart', () => clearInterval(autoSlide));
-track.addEventListener('wheel', () => clearInterval(autoSlide));
-btnNext.addEventListener('click', () => clearInterval(autoSlide));
-btnPrev.addEventListener('click', () => clearInterval(autoSlide));
+track.addEventListener('touchend', resetTimer);
+track.addEventListener('wheel', () => {
+  clearInterval(autoSlide);
+
+  clearTimeout(window.wheelTimer);
+  window.wheelTimer = setTimeout(resetTimer, 2000);
+});
 
 // ====== DOTS ======
 const dots = document.querySelectorAll('.dot');
