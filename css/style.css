@@ -470,6 +470,46 @@ footer {
   place-items: center
 }
 
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.social-item {
+    width: 50px; 
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    text-decoration: none;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.social-item i {
+    font-size: 20px;
+}
+
+.social-item:hover {
+    transform: scale(1.1);
+}
+
+.social-item[aria-label="Facebook"]:hover {
+    border-color: #1877F2;
+    color: #1877F2;
+}
+
+.social-item[aria-label="Instagram"]:hover {
+    border-color: #E4405F;
+    color: #E4405F;
+}
+
 .copy {
   color: #727b88;
   margin-top: 24px;
@@ -483,4 +523,106 @@ footer {
 
 .mb-0 {
   margin-bottom: 0
+}
+
+
+/* RESPONSIVE & LAYOUT CHO MIKI */
+
+.card-pill {
+    width: 240px;
+    height: 300px;
+    margin: 0 auto;
+    background: #f4faf6;
+    border-radius: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card-pill img {
+    height: 80%;
+    width: auto;
+    object-fit: contain;
+}
+
+@media (max-width: 1024px) {
+    .ideas .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .slider {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 860px) {
+    .nav .row {
+        padding: 0 20px;
+        justify-content: space-between !important;
+    }
+
+    .story {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .story .art {
+        height: auto !important;
+        aspect-ratio: 16/9;
+        order: -1;
+    }
+    
+    .story .art iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .foot {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .side_image img {
+        margin: 0 auto 20px;
+        max-height: 200px;
+    }
+
+    .social {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 860px) {
+  .slide-track {
+    overflow-x: auto; /* Cho phép vuốt tay */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Giúp vuốt mượt hơn trên iPhone */
+  }
+}
+
+@media (max-width: 560px) {
+    .ideas .grid {
+        grid-template-columns: 1fr;
+    }
+
+    h2.title {
+        font-size: 26px;
+    }
+
+    .slider {
+        max-width: 100%;
+    }
+
+    .slide-track img {
+        height: 120px;
+    }
+
+    .modal-box {
+        width: 90%;
+        margin: 10vh auto;
+        padding: 20px;
+    }
 }
